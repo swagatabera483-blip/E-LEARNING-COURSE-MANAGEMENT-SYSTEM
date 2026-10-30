@@ -1,0 +1,57 @@
+
+class User:
+    def __init__(self, name):
+        self.name = name
+
+class Student(User):
+    def enroll_course(self, course):
+        print(self.name, "enrolled in", course)
+
+class Course:
+    def __init__(self, course_name):
+        self.course_name = course_name
+
+def save_data(data):
+    with open("courses.txt", "a") as file:
+        file.write(data + "\n")
+
+
+def view_data():
+    try:
+        with open("courses.txt", "r") as file:
+            print("\nSaved Course Records:")
+            print(file.read())
+    except FileNotFoundError:
+        print("No records found.")
+
+student = Student("Rahul")
+
+while True:
+    print("\n--- E-LEARNING COURSE MANAGEMENT ---")
+    print("1. Add Course")
+    print("2. Enroll Student")
+    print("3. View Records")
+    print("4. Exit")
+
+    choice = input("Enter choice: ")
+
+    if choice == "1":
+        name = input("Enter Course Name: ")
+        course = Course(name)
+        save_data("Course: " + course.course_name)
+        print("Course Added Successfully!")
+
+    elif choice == "2":
+        course = input("Enter Course Name: ")
+        student.enroll_course(course)
+        save_data("Student: " + student.name + " | Course: " + course)
+
+    elif choice == "3":
+        view_data()
+
+    elif choice == "4":
+        print("Thank You!")
+        break
+
+    else:
+        print("Invalid Choice!")
